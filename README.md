@@ -73,4 +73,5 @@ Duckov_Data/Mods/BetterDuckov_v1.10/
 - 0Harmony.dll
 - MonoMod.RuntimeDetour.dll
 - MonoMod.Utils.dll
+
 6.Launch game → Mods menu → Enable mod
