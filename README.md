@@ -44,6 +44,9 @@ A comprehensive quality-of-life mod for [Escape from Duckov] that enhances vario
 - **Black Market Upgrade Multiplier**: (1x-20x)
 - **Buy All Button**: Purchase entire shop inventories at once
 
+### Enemy Health Scaling
+- **Scaling Factor**: (0.01x-100x)
+
 ## Installation & Usage
 
 1. **First Time Setup**: Press `F8` or `Q` and `E` keys in the main game menu to open the mod settings interface
