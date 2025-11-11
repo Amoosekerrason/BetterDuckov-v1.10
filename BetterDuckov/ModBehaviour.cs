@@ -85,7 +85,8 @@ namespace bigInventory
 
     public class ModBehaviour : Duckov.Modding.ModBehaviour
     {
-        private Harmony harmony;
+        internal static Harmony harmony;
+        internal static readonly string modName = "Better Duckov";
         private const string HARMONY_ID = "com.violet.lightweightmod";
 
         private static bool patchesApplied = false;

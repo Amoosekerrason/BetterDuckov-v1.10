@@ -254,6 +254,8 @@
     <Compile Include="Bettershop.cs" />
     <Compile Include="Buyall.cs" />
     <Compile Include="DurabilityMultiplier.cs" />
+    <Compile Include="EnemyHealthMultiplier.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="ModBehaviour.cs" />
     <Compile Include="Capacity.cs" />
     <Compile Include="LootCount.cs" />
