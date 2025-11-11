@@ -77,6 +77,9 @@ namespace bigInventory
 
         public float UIScale = 1f;
 
+        public bool EnableEnemyHealthMultiply = false;
+        public float EnemyHealthMultiplier = 1f;
+
         public static void Load()
         {
             BigInventoryConfigManager.LoadConfig();
@@ -256,6 +259,11 @@ namespace bigInventory
             }
         }
 
+
+        private void OnDisable()
+        {
+            EnemyHealthMultiplier.processedEnemies.Clear();
+        }
         //OnDestroy作为最终保障
         private void OnDestroy()
         {
