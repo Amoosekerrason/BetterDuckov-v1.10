@@ -50,9 +50,9 @@ A comprehensive quality-of-life mod for [Escape from Duckov] that enhances vario
 - **Black Market Upgrade Multiplier**: (1x-20x)
 - **Buy All Button**: Purchase entire shop inventories at once
 
-  ### Enemy Health Scaling
+### Enemy Health Scaling
 
-  - **Scaling Factor**: (0.01x-100x)
+- **Scaling Factor**: (0.01x-100x)
 
 ## Installation & Usage
 
