@@ -3,22 +3,42 @@ using UnityEngine;
 
 namespace bigInventory
 {
-    internal class Logger
+    internal static class Logger
     {
         private static string ModName => ModBehaviour.modName;
+        internal static readonly bool _switch = false;
 
-        public static void Log(string message)
+        public enum Level { Regular, Test }
+
+        private static bool ShouldLog(Level lvl)
         {
-            Debug.Log($"[{DateTime.Now:HH:mm:ss}][{ModName}]: {message}");
-        }
-        public static void Error(string message)
-        {
-            Debug.LogError($"> !!! <[{DateTime.Now:HH:mm:ss}][{ModName}]: {message}");
+            return lvl == Level.Regular || (lvl == Level.Test && _switch);
         }
 
-        public static void Warn(string message)
+        private static string Format(string message, string subMod = null)
         {
-            Debug.LogWarning($">!!!!!<[{DateTime.Now:HH:mm:ss}][{ModName}]: {message}");
+            string sub = subMod != null ? $"[{subMod}]" : "";
+            return $"[{DateTime.Now:HH:mm:ss}][{ModName}]{sub}: {message}";
+        }
+        public static void Log(Level lvl, string message, string subMod)
+        {
+            if (!ShouldLog(lvl)) return;
+
+            Debug.Log(Format(message, subMod));
+        }
+
+        public static void Error(Level lvl, string message, string subMod)
+        {
+            if (!ShouldLog(lvl)) return;
+
+            Debug.LogError("> !!! <" + Format(message, subMod));
+        }
+
+        public static void Warn(Level lvl, string message, string subMod)
+        {
+            if (!ShouldLog(lvl)) return;
+
+            Debug.LogWarning("> !!!!! <" + Format(message, subMod));
         }
     }
 }

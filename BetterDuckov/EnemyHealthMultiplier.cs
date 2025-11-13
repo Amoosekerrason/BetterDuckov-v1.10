@@ -14,7 +14,8 @@ namespace bigInventory
 
         private static ModConfig Config => BigInventoryConfigManager.Config;
 
-        internal static readonly HashSet<Health> processedEnemies = new HashSet<Health>();
+        // 用不到，遊戲中不會有調整血量導致的血量差異
+        //internal static readonly HashSet<Health> processedEnemies = new HashSet<Health>();
 
         [HarmonyPatch(typeof(Health), "MaxHealth", MethodType.Getter)]
         public class Patch_Health_MaxHealth
@@ -27,12 +28,13 @@ namespace bigInventory
                 if (owner != null && owner != LevelManager.Instance.MainCharacter)
                 {
                     __result *= Config.EnemyHealthMultiplier;   
-                    if (!processedEnemies.Contains(__instance))
-                    {
-                        __instance.CurrentHealth = __result;
-                        processedEnemies.Add(__instance);
 
-                    }
+                    // 用不到
+                    //if (!processedEnemies.Contains(__instance))
+                    //{
+                    //    __instance.CurrentHealth = __result;
+                    //    processedEnemies.Add(__instance);
+                    //}
                 }
             }
         }

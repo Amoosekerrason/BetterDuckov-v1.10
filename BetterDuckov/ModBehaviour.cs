@@ -260,10 +260,6 @@ namespace bigInventory
         }
 
 
-        private void OnDisable()
-        {
-            EnemyHealthMultiplier.processedEnemies.Clear();
-        }
         //OnDestroy作为最终保障
         private void OnDestroy()
         {
