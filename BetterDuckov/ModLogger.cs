@@ -6,13 +6,14 @@ namespace bigInventory
     internal static class ModLogger
     {
         private static string ModName => ModBehaviour.modName;
-        internal static readonly bool _switch = false;
+
+        internal static readonly bool _testLvlSwitch = false;
 
         public enum Level { Regular, Test }
 
         private static bool ShouldLog(Level lvl)
         {
-            return lvl == Level.Regular || (lvl == Level.Test && _switch);
+            return lvl == Level.Regular || (lvl == Level.Test && _testLvlSwitch);
         }
 
         private static string Format(string message, string subMod = null)
