@@ -188,7 +188,7 @@ namespace bigInventory
                 if (uiInstance != null)
                 {
                     DestroyImmediate(uiInstance.gameObject);
-                    ModLogger.Log(ModLogger.Level.Test, $"Harmony补丁已卸载", "BigInventory");
+                    ModLogger.Log(ModLogger.Level.Test, $"UI实例已清理", "BigInventory");
 
                 }
 
