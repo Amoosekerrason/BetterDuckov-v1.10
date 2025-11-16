@@ -263,6 +263,7 @@
     <Compile Include="EndowmentNegativeRemover.cs" />
     <Compile Include="MoreEnemys.cs" />
     <Compile Include="PerkInstantUnlock.cs" />
+    <Compile Include="RepairToMax.cs" />
     <Compile Include="TotemNegativeRemover.cs" />
     <Compile Include="KeyListener.cs" />
     <Compile Include="ConfigManager.cs" />

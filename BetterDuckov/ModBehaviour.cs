@@ -120,6 +120,7 @@ namespace bigInventory
                 ShopModifier.InstallPatches(harmony);
                 PerkInstantUnlock.InstallPatches(harmony);
                 CapacityPatchManager.InitializeAll();
+                RepairToMax.Install(this.gameObject);
 
                 ForceSlotDisplayNamePatch.InstallDynamicPatch(harmony);
                 SlotContentRestrictionDynamic.InstallSlotContentPatches(harmony);
@@ -128,6 +129,7 @@ namespace bigInventory
                 GameObject go = new GameObject("BigInventory_UIListener");
                 go.AddComponent<BigInventoryKeyListener>();
                 UnityEngine.Object.DontDestroyOnLoad(go);
+
 
                 // 初始化图腾负面效果移除
                 InitializeTotemNegativeRemoval();

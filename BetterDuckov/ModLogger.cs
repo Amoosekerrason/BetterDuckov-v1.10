@@ -7,7 +7,7 @@ namespace bigInventory
     {
         private static string ModName => ModBehaviour.modName;
 
-        internal static readonly bool _testLvlSwitch = false;
+        internal static readonly bool _testLvlSwitch = true;
 
         public enum Level { Regular, Test }
 
