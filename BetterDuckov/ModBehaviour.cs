@@ -101,6 +101,7 @@ namespace bigInventory
             base.OnAfterSetup();
             try
             {
+                ModLogger.InitWithConsole();
                 if (patchesApplied)
                 {
                     ModLogger.Log(ModLogger.Level.Regular, $"mod补丁已存在，跳过重复加载。");
