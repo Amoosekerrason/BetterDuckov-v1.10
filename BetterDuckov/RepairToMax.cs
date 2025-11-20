@@ -61,6 +61,7 @@ namespace bigInventory
         private static void SetItemDuraToMax(Item item)
 
         {
+            item.DurabilityLoss = 0f;
             item.Durability = item.MaxDurability;
         }
 
