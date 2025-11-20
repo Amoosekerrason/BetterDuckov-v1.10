@@ -149,7 +149,7 @@ namespace bigInventory
             }
             catch (Exception ex)
             {
-                ModLogger.Error(ModLogger.Level.Regular, $"初始化失败: {ex}", "");
+                ModLogger.Error(ModLogger.Level.Regular, $"初始化失败: {ex}","On After Setup");
 
             }
         }

@@ -84,6 +84,10 @@
       <HintPath>D:\Steam\steamapps\common\Escape from Duckov\Duckov_Data\Managed\ItemStatsSystem.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="ParadoxNotion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Steam\steamapps\common\Escape from Duckov\Duckov_Data\Managed\ParadoxNotion.dll</HintPath>
+    </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Steam\steamapps\common\Escape from Duckov\Duckov_Data\Managed\Sirenix.OdinInspector.Attributes.dll</HintPath>

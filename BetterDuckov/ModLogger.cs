@@ -1,6 +1,9 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace bigInventory
@@ -15,23 +18,37 @@ namespace bigInventory
 
         [DllImport("kernel32.dll")]
         private static extern bool SetConsolemode(IntPtr hConsoleHandle, int mode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool SetConsoleOutputCP(uint wCodePageID);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool SetConsoleCP(uint wCodePageID);
+
         private static string ModName => ModBehaviour.modName;
 
-        internal static readonly bool _testLvlSwitch = false;
+        internal static readonly bool _testLvlSwitch = true;
 
         public enum Level { Regular, Test }
 
         public static void InitWithConsole()
         {
-            // 依賴測試開關
+            // 依賴_testLvlSwitch 開關
             if (!_testLvlSwitch) return;
             AllocConsole();
+            SetConsoleOutputCP(65001);
+            SetConsoleCP(65001);
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
+
             Console.SetOut(new StreamWriter(Console.OpenStandardOutput())
             {
                 AutoFlush = true
             });
             Console.WriteLine(Format("Console Ready"));
         }
+
+
 
         private static bool ShouldLog(Level lvl)
         {
@@ -41,7 +58,10 @@ namespace bigInventory
         private static void LogToConsole(string msg)
         {
             if (!_testLvlSwitch) return;
-            Console.WriteLine(msg);
+            Task.Run(() =>
+            {
+                Console.WriteLine(msg);
+            });
         }
 
         private static string Format(string message, string subMod = null)
