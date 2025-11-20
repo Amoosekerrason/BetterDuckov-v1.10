@@ -445,7 +445,7 @@ namespace bigInventory
                 v => BigInventoryConfigManager.Config.EnableRepairLossReduction = v,
                 "耐久损耗倍率\n低于1即为减少损耗", 0f, 1.0f, BigInventoryConfigManager.Config.RepairLossMultiplier,
                 v => { BigInventoryConfigManager.Config.RepairLossMultiplier = v; }, repairLossInput, false, parent);
-
+            CreateToggle("修理到滿\n(本模組開關後生效)", BigInventoryConfigManager.Config.EnableRepairToMax, v => BigInventoryConfigManager.Config.EnableRepairToMax = v, parent);
             CreateToggleWithControls("启用多倍耐久", BigInventoryConfigManager.Config.EnableDurabilityDouble,
                 v => BigInventoryConfigManager.Config.EnableDurabilityDouble = v,
                 "耐久倍率", 1f, 10.0f, BigInventoryConfigManager.Config.DurabilityMultiplier,
@@ -1298,6 +1298,7 @@ namespace bigInventory
                         else if (old.Contains("商店修改设置")) text.text = "Shop Modification Settings";
                         else if (old.Contains("敵鴨血量縮放")) text.text = "Enemy Health Scaling";
 
+
                         // 开关标签
                         else if (old.Contains("启用物品减重")) text.text = "Enable Item Weight Reduction";
                         else if (old.Contains("启用堆叠倍率增加\n(现已支持部分不可堆叠物)")) text.text = "Enable Stack Multiplier\n(Now supports some non-stackable items)";
@@ -1325,6 +1326,8 @@ namespace bigInventory
                         else if (old.Contains("启用商店修改")) text.text = "Enable Shop Modification";
                         else if (old.Contains("启用购买全部按钮")) text.text = "Enable Buy All Button";
                         else if (old.Contains("啟用敵鴨血量縮放")) text.text = "Enable Enemy Health Scaling";
+                        else if (old.Contains("修理到滿\n(本模組開關後生效)")) text.text = "Repair To Max\n(Reopen This Mod to Take effect)";
+
 
 
 
@@ -1398,6 +1401,8 @@ namespace bigInventory
                         else if (old.Contains("Enable Shop Modification")) text.text = "启用商店修改";
                         else if (old.Contains("Enable Buy All Button")) text.text = "启用购买全部按钮";
                         else if (old.Contains("Enable Enemy Health Scaling")) text.text = "啟用敵鴨血量縮放";
+                        else if (old.Contains("Repair To Max\n(Reopen This Mod to Take effect)")) text.text = "修理到滿\n(本模組開關後生效)";
+
 
 
                         // 滑块标签

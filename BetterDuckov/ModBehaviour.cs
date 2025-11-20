@@ -29,6 +29,7 @@ namespace bigInventory
 
         public bool EnableRepairLossReduction = true;
         public bool EnableDurabilityDouble = false;
+        public bool EnableRepairToMax = false;
         public float DurabilityMultiplier = 2f;
         public float RepairLossMultiplier = 0.25f;
 

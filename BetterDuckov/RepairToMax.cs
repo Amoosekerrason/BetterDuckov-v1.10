@@ -21,6 +21,7 @@ namespace bigInventory
 
         void OnEnable()
         {
+            if (BigInventoryConfigManager.Config.EnableRepairToMax == false) return;
             ModLogger.Log(ModLogger.Level.Test, "RepairToMax attached", "RepairToMax");
             DeleOnActiveViewChanged.GetRequiredFields();
             ItemRepairView.OnRepaireOptionDone += OnRepairDone;
@@ -28,6 +29,7 @@ namespace bigInventory
         }
         void OnDisable()
         {
+            if (BigInventoryConfigManager.Config.EnableRepairToMax == false) return;
             ItemRepairView.OnRepaireOptionDone -= OnRepairDone;
             View.OnActiveViewChanged -= DeleOnActiveViewChanged.DewIt;
             ModLogger.Log(ModLogger.Level.Test, "RepairToMax disattached", "RepairToMax");

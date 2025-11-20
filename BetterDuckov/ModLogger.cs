@@ -27,13 +27,13 @@ namespace bigInventory
 
         private static string ModName => ModBehaviour.modName;
 
-        internal static readonly bool _testLvlSwitch = true;
+        internal static readonly bool _testLvlSwitch = false;
 
         public enum Level { Regular, Test }
 
         public static void InitWithConsole()
         {
-            // 依賴_testLvlSwitch 開關
+            // 依賴 _testLvlSwitch 開關
             if (!_testLvlSwitch) return;
             AllocConsole();
             SetConsoleOutputCP(65001);
