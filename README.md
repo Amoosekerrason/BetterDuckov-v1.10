@@ -1,4 +1,4 @@
-# BetterDuckov-v1.10
+﻿# BetterDuckov-v1.10
 
 A comprehensive quality-of-life mod for [Escape from Duckov] that enhances various gameplay mechanics and provides extensive customization options.
 
@@ -27,6 +27,7 @@ A comprehensive quality-of-life mod for [Escape from Duckov] that enhances vario
 
 - **Durability System**:
   - Repair cost reduction (0%-100%)
+  - Repair to max
   - Durability multiplier (1x-10x)
 - **Action Speed**: Increase action speed (1x-10x) for using items and searching
 - **Instant Level Up**: Immediate level progression
