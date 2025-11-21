@@ -24,24 +24,28 @@ namespace bigInventory
             if (BigInventoryConfigManager.Config.EnableRepairToMax == false) return;
             ModLogger.Log(ModLogger.Level.Test, "RepairToMax attached", "RepairToMax");
             DeleOnActiveViewChanged.GetRequiredFields();
-            ItemRepairView.OnRepaireOptionDone += OnRepairDone;
-            View.OnActiveViewChanged += DeleOnActiveViewChanged.DewIt;
+            ItemRepairView.OnRepaireOptionDone += SingleRepairToMax;
+            ItemUIUtilities.OnSelectionChanged += MakeItemRepairable;
+
+            View.OnActiveViewChanged += DeleOnActiveViewChanged.BindRepairUIEvents;
         }
         void OnDisable()
         {
             if (BigInventoryConfigManager.Config.EnableRepairToMax == false) return;
-            ItemRepairView.OnRepaireOptionDone -= OnRepairDone;
-            View.OnActiveViewChanged -= DeleOnActiveViewChanged.DewIt;
-            ModLogger.Log(ModLogger.Level.Test, "RepairToMax disattached", "RepairToMax");
+            ItemRepairView.OnRepaireOptionDone -= SingleRepairToMax;
+            ItemUIUtilities.OnSelectionChanged -= MakeItemRepairable;
+
+            View.OnActiveViewChanged -= DeleOnActiveViewChanged.BindRepairUIEvents;
             if (DeleOnActiveViewChanged.willLoseDuraText)
             {
-                DeleOnActiveViewChanged.willLoseDuraText.OnPreRenderText -= DeleOnActiveViewChanged.OnPreRenderWillLossDuraText;
+                DeleOnActiveViewChanged.willLoseDuraText.OnPreRenderText -= DeleOnActiveViewChanged.SetWillLossDuraTextToEmpty;
             }
             if (DeleOnActiveViewChanged.repairAllBtn)
             {
-                DeleOnActiveViewChanged.repairAllBtn.onClick.RemoveListener(new UnityAction(DeleOnActiveViewChanged.OnRepairAllBtnClicked));
+                DeleOnActiveViewChanged.repairAllBtn.onClick.RemoveListener(new UnityAction(DeleOnActiveViewChanged.RepairAllToMax));
 
             }
+            ModLogger.Log(ModLogger.Level.Test, "RepairToMax disattached", "RepairToMax");
         }
 
 
@@ -53,7 +57,7 @@ namespace bigInventory
             }
         }
 
-        private static void OnRepairDone()
+        private static void SingleRepairToMax()
         {
             Item selectItem = ItemUIUtilities.SelectedItem;
             if (selectItem == null) return;
@@ -67,6 +71,32 @@ namespace bigInventory
             item.Durability = item.MaxDurability;
         }
 
+        private static void MakeItemRepairable()
+        {
+            View activatedView = View.ActiveView;
+            if (activatedView is ItemRepairView)
+            {
+                Item selectedItem = ItemUIUtilities.SelectedItem;
+                if (selectedItem == null || selectedItem.DurabilityLoss == 0f) return;
+                try
+                {
+                    HackRepairCheck(selectedItem);
+                }
+                catch (Exception e)
+                {
+                    ModLogger.Error(ModLogger.Level.Regular, $"OnItemSelectionChange got error {e}", "RepairToMax");
+                }
+            }
+        }
+
+        // 讓耐久通過修理判定
+        private static void HackRepairCheck(Item item)
+        {
+            if (item.Durability >= item.MaxDurabilityWithLoss)
+            {
+                item.Durability = item.MaxDurabilityWithLoss - 1;
+            }
+        }
 
         private static class DeleOnActiveViewChanged
         {
@@ -102,7 +132,7 @@ namespace bigInventory
                 }
             }
 
-            internal static void DewIt()
+            internal static void BindRepairUIEvents()
             {
                 try
                 {
@@ -110,6 +140,7 @@ namespace bigInventory
 
                     View activatedView = View.ActiveView;
                     if (activatedView == null) return;
+
                     if (activatedView is ItemRepairView)
                     {
                         itemRepairView = (ItemRepairView)activatedView;
@@ -121,14 +152,14 @@ namespace bigInventory
                         if (willLoseDuraText == null || textMPGUI != willLoseDuraText)
                         {
                             willLoseDuraText = textMPGUI;
-                            willLoseDuraText.OnPreRenderText += OnPreRenderWillLossDuraText;
+                            willLoseDuraText.OnPreRenderText += SetWillLossDuraTextToEmpty;
                         }
                         if (repairAllBtn == null || btn != repairAllBtn)
                         {
                             repairAllBtn = btn;
-                            repairAllBtn.onClick.AddListener(new UnityAction(OnRepairAllBtnClicked));
+                            repairAllBtn.onClick.AddListener(new UnityAction(RepairAllToMax));
                         }
-                        ModLogger.Log(ModLogger.Level.Test, "DonIt", "RepairToMax");
+                        ModLogger.Log(ModLogger.Level.Test, "DoneIt", "RepairToMax");
 
                     }
                 }
@@ -139,9 +170,10 @@ namespace bigInventory
             }
 
 
-            internal static void OnRepairAllBtnClicked()
+            internal static void RepairAllToMax()
             {
                 Item selectedItem = ItemUIUtilities.SelectedItem;
+
                 foreach (Item item in itemRepairView.GetAllEquippedItems())
                 {
                     SetItemDuraToMax(item);
@@ -155,7 +187,7 @@ namespace bigInventory
             }
 
 
-            internal static void OnPreRenderWillLossDuraText(TMP_TextInfo text)
+            internal static void SetWillLossDuraTextToEmpty(TMP_TextInfo text)
             {
                 text.textComponent.text = "";
             }
