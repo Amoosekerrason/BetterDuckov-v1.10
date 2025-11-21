@@ -27,7 +27,7 @@ A comprehensive quality-of-life mod for [Escape from Duckov] that enhances vario
 
 - **Durability System**:
   - Repair cost reduction (0%-100%)
-  - Repair to max
+  - Repair to max (also make damaged but full durability item repairable)
   - Durability multiplier (1x-10x)
 - **Action Speed**: Increase action speed (1x-10x) for using items and searching
 - **Instant Level Up**: Immediate level progression
