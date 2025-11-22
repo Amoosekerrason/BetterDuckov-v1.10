@@ -42,7 +42,7 @@ namespace bigInventory
             }
             if (DeleOnActiveViewChanged.repairAllBtn)
             {
-                DeleOnActiveViewChanged.repairAllBtn.onClick.RemoveListener(new UnityAction(DeleOnActiveViewChanged.RepairAllToMax));
+                DeleOnActiveViewChanged.repairAllBtn.onClick.RemoveListener(DeleOnActiveViewChanged.UA_RepairAllToMax);
 
             }
             ModLogger.Log(ModLogger.Level.Test, "RepairToMax disattached", "RepairToMax");
@@ -94,7 +94,7 @@ namespace bigInventory
         {
             if (item.Durability >= item.MaxDurabilityWithLoss)
             {
-                item.Durability = item.MaxDurabilityWithLoss - 1;
+                item.Durability = Mathf.Max(0, item.MaxDurabilityWithLoss - 1);
             }
         }
 
@@ -106,12 +106,13 @@ namespace bigInventory
             private static MethodInfo m_RefreshSelectedItemInfo;
 
             private static ItemRepairView itemRepairView;
-
             internal static TextMeshProUGUI willLoseDuraText;
-
             internal static ItemRepair_RepairAllPanel repairAllPanel;
-
             internal static Button repairAllBtn;
+
+            internal static UnityAction UA_RepairAllToMax = new UnityAction(RepairAllToMax);
+
+
 
             internal static void GetRequiredFields()
             {
@@ -157,7 +158,7 @@ namespace bigInventory
                         if (repairAllBtn == null || btn != repairAllBtn)
                         {
                             repairAllBtn = btn;
-                            repairAllBtn.onClick.AddListener(new UnityAction(RepairAllToMax));
+                            repairAllBtn.onClick.AddListener(UA_RepairAllToMax);
                         }
                         ModLogger.Log(ModLogger.Level.Test, "DoneIt", "RepairToMax");
 
