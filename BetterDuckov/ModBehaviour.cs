@@ -29,6 +29,7 @@ namespace bigInventory
 
         public bool EnableRepairLossReduction = true;
         public bool EnableDurabilityDouble = false;
+        public bool EnableRepairToMax = false;
         public float DurabilityMultiplier = 2f;
         public float RepairLossMultiplier = 0.25f;
 
@@ -101,6 +102,7 @@ namespace bigInventory
             base.OnAfterSetup();
             try
             {
+                ModLogger.InitWithConsole();
                 if (patchesApplied)
                 {
                     ModLogger.Log(ModLogger.Level.Regular, $"mod补丁已存在，跳过重复加载。");
@@ -120,6 +122,7 @@ namespace bigInventory
                 ShopModifier.InstallPatches(harmony);
                 PerkInstantUnlock.InstallPatches(harmony);
                 CapacityPatchManager.InitializeAll();
+                RepairToMax.Install(this.gameObject);
 
                 ForceSlotDisplayNamePatch.InstallDynamicPatch(harmony);
                 SlotContentRestrictionDynamic.InstallSlotContentPatches(harmony);
@@ -128,6 +131,7 @@ namespace bigInventory
                 GameObject go = new GameObject("BigInventory_UIListener");
                 go.AddComponent<BigInventoryKeyListener>();
                 UnityEngine.Object.DontDestroyOnLoad(go);
+
 
                 // 初始化图腾负面效果移除
                 InitializeTotemNegativeRemoval();
@@ -146,7 +150,7 @@ namespace bigInventory
             }
             catch (Exception ex)
             {
-                ModLogger.Error(ModLogger.Level.Regular, $"初始化失败: {ex}", "");
+                ModLogger.Error(ModLogger.Level.Regular, $"初始化失败: {ex}","On After Setup");
 
             }
         }
@@ -188,7 +192,7 @@ namespace bigInventory
                 if (uiInstance != null)
                 {
                     DestroyImmediate(uiInstance.gameObject);
-                    ModLogger.Log(ModLogger.Level.Test, $"Harmony补丁已卸载", "BigInventory");
+                    ModLogger.Log(ModLogger.Level.Test, $"UI实例已清理", "BigInventory");
 
                 }
 
